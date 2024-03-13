@@ -291,6 +291,7 @@ fork(void)
 
   safestrcpy(np->name, p->name, sizeof(p->name));
 
+  np->trace_mask=p->trace_mask;
   pid = np->pid;
 
   np->state = RUNNABLE;
@@ -693,3 +694,16 @@ procdump(void)
     printf("\n");
   }
 }
+
+int
+procnum(void){
+  int num=0;
+  struct  proc *p;
+  for(p=proc;p<&proc[NPROC];p++){
+    if(p->state!=UNUSED){
+      num++;
+    }
+  }
+  return num;
+}
+
